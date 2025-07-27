@@ -163,3 +163,34 @@ body {
     margin-bottom: 20px;
   }
 }
+
+/* Contact Page Styles */
+.contact-form {
+  display: flex;
+  flex-direction: column;
+  gap: 15px;
+  margin-top: 20px;
+}
+.contact-form input,
+.contact-form textarea {
+  padding: 10px;
+  border-radius: 5px;
+  border: 1px solid #aaa;
+  width: 100%;
+}
+.contact-form button {
+  padding: 10px;
+  background-color: #008080;
+  color: white;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+}
+.contact-form button:hover {
+  background-color: #006666;
+}
+
+.contact-info {
+  margin-top: 40px;
+  line-height: 1.8;
+}
