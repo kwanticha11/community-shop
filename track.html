@@ -1,0 +1,108 @@
+<!DOCTYPE html>
+<html lang="th">
+<head>
+  <meta charset="UTF-8">
+  <title>ติดตามสถานะคำสั่งซื้อ | ร้านค้าชุมชน</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link href="https://fonts.googleapis.com/css2?family=Kanit&display=swap" rel="stylesheet">
+  <style>
+    body {
+      font-family: 'Kanit', sans-serif;
+      background-color: #f9f9f9;
+      padding: 30px;
+    }
+
+    .container {
+      max-width: 600px;
+      margin: auto;
+      background: #fff;
+      padding: 30px;
+      border-radius: 10px;
+      box-shadow: 0 0 10px #ccc;
+    }
+
+    h2 {
+      text-align: center;
+      color: #00724f;
+      margin-bottom: 25px;
+    }
+
+    label {
+      display: block;
+      margin: 15px 0 5px;
+    }
+
+    input, button {
+      width: 100%;
+      padding: 10px;
+      font-size: 1rem;
+      border-radius: 6px;
+      border: 1px solid #ccc;
+      margin-bottom: 20px;
+    }
+
+    button {
+      background-color: #f26419;
+      color: white;
+      border: none;
+      cursor: pointer;
+    }
+
+    button:hover {
+      background-color: #d65211;
+    }
+
+    .status-box {
+      background-color: #e8ffe8;
+      border: 1px solid #88c688;
+      padding: 15px;
+      border-radius: 8px;
+      text-align: center;
+      font-weight: bold;
+      color: #006241;
+    }
+
+    .not-found {
+      background-color: #ffe8e8;
+      border: 1px solid #d88;
+      padding: 15px;
+      border-radius: 8px;
+      text-align: center;
+      color: #b10000;
+    }
+  </style>
+</head>
+<body>
+
+<div class="container">
+  <h2>📦 ติดตามสถานะคำสั่งซื้อ</h2>
+
+  <label for="orderId">กรอกเลขคำสั่งซื้อของคุณ (เช่น ORD001):</label>
+  <input type="text" id="orderId" placeholder="ตัวอย่าง: ORD001">
+  <button onclick="checkStatus()">🔍 ตรวจสอบสถานะ</button>
+
+  <div id="result"></div>
+</div>
+
+<script>
+  function checkStatus() {
+    const orderId = document.getElementById("orderId").value.trim().toUpperCase();
+    const resultBox = document.getElementById("result");
+
+    if (!orderId) {
+      resultBox.innerHTML = '<div class="not-found">⚠️ กรุณากรอกเลขคำสั่งซื้อ</div>';
+      return;
+    }
+
+    const trackingData = JSON.parse(localStorage.getItem("trackingStatus") || "{}");
+
+    if (trackingData[orderId]) {
+      resultBox.innerHTML = `<div class="status-box">สถานะ: ${trackingData[orderId]}</div>`;
+    } else {
+      resultBox.innerHTML = '<div class="not-found">❌ ไม่พบสถานะของคำสั่งซื้อนี้</div>';
+    }
+  }
+</script>
+
+</body>
+</html>

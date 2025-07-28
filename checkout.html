@@ -1,0 +1,202 @@
+<!DOCTYPE html>
+<html lang="th">
+<head>
+  <meta charset="UTF-8" />
+  <title>ชำระเงิน - ร้านค้าชุมชน</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <link rel="stylesheet" href="css/style.css" />
+  <link href="https://fonts.googleapis.com/css2?family=Kanit&display=swap" rel="stylesheet" />
+  <style>
+    body { font-family: 'Kanit', sans-serif; }
+    .checkout-container {
+      max-width: 700px;
+      margin: auto;
+      padding: 30px 20px;
+    }
+    .checkout-container input,
+    .checkout-container textarea {
+      width: 100%;
+      padding: 10px;
+      margin-bottom: 15px;
+      border-radius: 5px;
+      border: 1px solid #aaa;
+    }
+    .btn-print {
+      background-color: #f26419;
+      color: white;
+      padding: 10px 20px;
+      font-weight: bold;
+      border: none;
+      border-radius: 6px;
+      cursor: pointer;
+      margin-top: 20px;
+    }
+    .receipt {
+      background-color: #fdfdfd;
+      border: 1px solid #ccc;
+      padding: 20px;
+      max-width: 380px;
+      margin: 30px auto;
+      border-radius: 8px;
+      font-size: 0.95rem;
+    }
+    .footer {
+      text-align: center;
+      padding: 30px;
+      background-color: #00724f;
+      color: white;
+      margin-top: 60px;
+    }
+  </style>
+</head>
+<body onload="showSummary()">
+  <header class="navbar">
+    <div class="container">
+      <div class="logo">🛒 ชุมชนช้อป</div>
+      <nav>
+        <a href="index.html">หน้าแรก</a>
+        <a href="products.html">สินค้า</a>
+        <a href="about.html">เกี่ยวกับเรา</a>
+        <a href="contact.html">ติดต่อ</a>
+        <a href="cart.html">ตะกร้า</a>
+        <a href="checkout.html">ชำระเงิน</a>
+      </nav>
+    </div>
+  </header>
+
+  <section class="hero">
+    <div class="hero-content">
+      <h1>ข้อมูลการชำระเงิน</h1>
+      <p>กรุณากรอกข้อมูลให้ครบถ้วน เพื่อออกใบเสร็จและดำเนินการจัดส่ง</p>
+    </div>
+  </section>
+
+  <section class="checkout-container">
+    <form id="checkout-form">
+      <h3>ข้อมูลผู้สั่งซื้อ</h3>
+      <input type="text" id="fullname" placeholder="ชื่อ-นามสกุล" required />
+      <input type="text" id="phone" placeholder="เบอร์โทรศัพท์" required />
+      <textarea id="address" rows="3" placeholder="ที่อยู่สำหรับจัดส่ง" required></textarea>
+      <textarea id="note" rows="2" placeholder="หมายเหตุเพิ่มเติม (ถ้ามี)"></textarea>
+
+      <hr style="margin: 30px 0;">
+
+      <h3>📌 วิธีชำระเงิน</h3>
+      <ul>
+        <li><strong>บัญชีธนาคาร:</strong> กรุงไทย (KTB)</li>
+        <li><strong>ชื่อบัญชี:</strong> นางสาวกาญจนา แสงทอง</li>
+        <li><strong>เลขที่บัญชี:</strong> 123-4-56789-0</li>
+      </ul>
+      <p>สแกน QR เพื่อชำระเงินผ่าน PromptPay:</p>
+      <img src="images/qrcode-promptpay.jpg" alt="QR PromptPay" style="max-width: 200px; border: 1px solid #ccc; border-radius: 6px; margin: 15px 0;">
+
+      <button type="submit" class="btn-print">ยืนยันคำสั่งซื้อ / พิมพ์ใบเสร็จ</button>
+    </form>
+
+    <div class="receipt" id="receipt" style="display: none;">
+      <h2 style="text-align: center; color: #00724f;">🛍 ร้านค้าชุมชน</h2>
+      <p><strong>ชื่อลูกค้า:</strong> <span id="r-name"></span></p>
+      <p><strong>เบอร์โทร:</strong> <span id="r-phone"></span></p>
+      <p><strong>ที่อยู่:</strong> <span id="r-address"></span></p>
+      <hr>
+      <h4>🛒 รายการสั่งซื้อ:</h4>
+      <div id="r-items"></div>
+      <p><strong>💰 ยอดรวมทั้งหมด:</strong> <span id="r-total"></span> บาท</p>
+      <hr>
+      <p style="text-align: center; color: #888;">ขอบคุณที่อุดหนุนสินค้าชุมชนของเรา 🙏</p>
+    </div>
+
+    <p style="text-align: center; margin-top: 20px;">
+      👉 <a href="track.html">คลิกที่นี่เพื่อติดตามสถานะคำสั่งซื้อของคุณ</a>
+    </p>
+
+    <hr style="margin: 40px 0;">
+    <h3>📤 ยืนยันการชำระเงิน</h3>
+    <p>กรุณากรอกข้อมูลและแนบสลิปผ่านแบบฟอร์มด้านล่างนี้:</p>
+
+    <iframe src="https://docs.google.com/forms/d/e/1FAIpQLSfksvk7w3hlfDRFnUYlXK_NNGmlRJkZOAAT65IS45W42tYTRw/viewform?embedded=true"
+            width="100%" height="1000" frameborder="0" marginheight="0" marginwidth="0">
+      กำลังโหลดแบบฟอร์ม…
+    </iframe>
+  </section>
+
+  <footer class="footer">
+    <p>© 2025 ชุมชนช้อป. สงวนลิขสิทธิ์.</p>
+  </footer>
+
+  <script>
+    function showSummary() {}
+
+    document.getElementById('checkout-form').addEventListener('submit', function (e) {
+      e.preventDefault();
+
+      const name = document.getElementById('fullname').value;
+      const phone = document.getElementById('phone').value;
+      const address = document.getElementById('address').value;
+      const note = document.getElementById('note').value;
+      const cart = JSON.parse(localStorage.getItem('cart')) || [];
+
+      let orderText = `📦 คำสั่งซื้อใหม่จาก ${name}\n📱 เบอร์: ${phone}\n📍 ที่อยู่: ${address}\n🛒 รายการ:\n`;
+      let total = 0;
+      const rItems = document.getElementById('r-items');
+      rItems.innerHTML = '';
+
+      cart.forEach(item => {
+        const sum = item.price * item.quantity;
+        total += sum;
+        const p = document.createElement('p');
+        p.textContent = `${item.name} x ${item.quantity} = ${sum} บาท`;
+        rItems.appendChild(p);
+        orderText += `• ${item.name} x ${item.quantity} = ${sum} บาท\n`;
+      });
+
+      orderText += `💰 รวมทั้งหมด: ${total} บาท\n\nหมายเหตุ: ${note}\n📤 ลูกค้าได้แนบสลิปใน Google Form แล้ว`;
+
+      document.getElementById('r-name').textContent = name;
+      document.getElementById('r-phone').textContent = phone;
+      document.getElementById('r-address').textContent = address;
+      document.getElementById('r-total').textContent = total;
+      document.getElementById('receipt').style.display = 'block';
+
+      // 🔔 แจ้งเตือนผ่าน LINE
+      sendLineNotify(orderText);
+
+      // ✅ ส่งข้อมูลไป Google Sheets
+      const order = {
+        name: name,
+        phone: phone,
+        address: address,
+        note: note,
+        products: cart.map(item => `${item.name} x ${item.quantity}`).join(', '),
+        total: total
+      };
+
+      fetch("https://script.google.com/macros/s/AKfycbyNVFDduzRpSWWHxyWtbVCroj-N77V9mZF28hESla8/dev", {
+        method: "POST",
+        body: JSON.stringify(order),
+        headers: { "Content-Type": "application/json" }
+      })
+      .then(res => console.log("📄 ส่งข้อมูลไป Google Sheets สำเร็จ"))
+      .catch(err => console.error("❌ เกิดข้อผิดพลาดในการส่ง Google Sheets:", err));
+
+      alert("✅ ระบบได้รับคำสั่งซื้อแล้ว โปรดแนบสลิปในแบบฟอร์มด้านล่าง");
+      window.print();
+      localStorage.removeItem('cart');
+    });
+
+    function sendLineNotify(message) {
+      const token = "ใส่-TOKEN-ของคุณที่นี่"; // LINE Notify Token
+      if (!token || token.includes("ใส่")) return;
+
+      fetch("https://notify-api.line.me/api/notify", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/x-www-form-urlencoded",
+          "Authorization": "Bearer " + token
+        },
+        body: "message=" + encodeURIComponent(message)
+      });
+    }
+  </script>
+</body>
+</html>
