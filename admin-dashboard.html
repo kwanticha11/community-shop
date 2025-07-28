@@ -1,0 +1,145 @@
+<!DOCTYPE html>
+<html lang="th">
+<head>
+  <meta charset="UTF-8">
+  <title>แดชบอร์ดผู้ดูแล | ร้านค้าชุมชน</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link href="https://fonts.googleapis.com/css2?family=Kanit&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="admin-style.css">
+  <style>
+    * {
+      box-sizing: border-box;
+    }
+
+    body {
+      font-family: 'Kanit', sans-serif;
+      margin: 0;
+      background-color: #f0f0f0;
+      color: #333;
+    }
+
+    header {
+      background-color: #00724f;
+      color: white;
+      padding: 20px;
+      text-align: center;
+    }
+
+    header h1 {
+      margin: 0;
+      font-size: 1.8rem;
+    }
+
+    .dashboard-container {
+      max-width: 1000px;
+      margin: 30px auto;
+      padding: 0 20px;
+    }
+
+    .grid-menu {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+      gap: 20px;
+    }
+
+    .menu-item {
+      background-color: white;
+      padding: 30px 20px;
+      border-radius: 12px;
+      box-shadow: 0 4px 8px rgba(0,0,0,0.08);
+      text-align: center;
+      transition: 0.2s ease;
+    }
+
+    .menu-item:hover {
+      transform: translateY(-3px);
+      box-shadow: 0 8px 16px rgba(0,0,0,0.15);
+    }
+
+    .menu-item a {
+      text-decoration: none;
+      color: #00724f;
+      font-weight: bold;
+      display: block;
+    }
+
+    .menu-item i {
+      font-size: 2.5rem;
+      color: #f26419;
+      margin-bottom: 15px;
+    }
+
+    .logout {
+      text-align: center;
+      margin-top: 40px;
+    }
+
+    .logout button {
+      padding: 10px 25px;
+      background-color: #f26419;
+      color: white;
+      border: none;
+      border-radius: 8px;
+      font-size: 1rem;
+      cursor: pointer;
+    }
+
+    .logout button:hover {
+      background-color: #d65211;
+    }
+
+    @media screen and (max-width: 600px) {
+      header h1 {
+        font-size: 1.5rem;
+      }
+    }
+  </style>
+  <script>
+    function checkLogin() {
+      if (localStorage.getItem("adminLoggedIn") !== "true") {
+        alert("กรุณาเข้าสู่ระบบก่อน");
+        window.location.href = "admin-login.html";
+      }
+    }
+
+    function logout() {
+      localStorage.removeItem("adminLoggedIn");
+      alert("ออกจากระบบแล้ว");
+      window.location.href = "admin-login.html";
+    }
+  </script>
+  <script src="https://kit.fontawesome.com/a076d05399.js" crossorigin="anonymous"></script> <!-- ไอคอน -->
+</head>
+<body onload="checkLogin()">
+
+  <header>
+    <h1>📊 แผงควบคุมผู้ดูแลระบบร้านค้าชุมชน</h1>
+  </header>
+
+  <div class="dashboard-container">
+    <div class="grid-menu">
+      <div class="menu-item">
+        <i class="fas fa-box"></i>
+        <a href="admin-products.html">จัดการสินค้า</a>
+      </div>
+      <div class="menu-item">
+        <i class="fas fa-file-invoice"></i>
+        <a href="admin-orders.html">ดูคำสั่งซื้อ</a>
+      </div>
+      <div class="menu-item">
+        <i class="fas fa-truck"></i>
+        <a href="admin-status.html">สถานะการจัดส่ง</a>
+      </div>
+      <div class="menu-item">
+        <i class="fas fa-user-cog"></i>
+        <a href="admin-login.html" onclick="logout()">ออกจากระบบ</a>
+      </div>
+    </div>
+
+    <div class="logout">
+      <button onclick="logout()">ออกจากระบบ</button>
+    </div>
+  </div>
+
+</body>
+</html>

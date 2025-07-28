@@ -1,0 +1,112 @@
+<!DOCTYPE html>
+<html lang="th">
+<head>
+  <meta charset="UTF-8">
+  <title>อัปเดตสถานะจัดส่ง | ร้านค้าชุมชน</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link href="https://fonts.googleapis.com/css2?family=Kanit&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="admin-style.css">
+  <style>
+    body {
+      font-family: 'Kanit', sans-serif;
+      background-color: #f6f6f6;
+      padding: 30px;
+    }
+
+    .container {
+      max-width: 600px;
+      margin: auto;
+      background: white;
+      padding: 25px;
+      border-radius: 10px;
+      box-shadow: 0 0 10px #ccc;
+    }
+
+    h2 {
+      text-align: center;
+      color: #00724f;
+    }
+
+    label {
+      display: block;
+      margin: 15px 0 5px;
+    }
+
+    input, select, button {
+      width: 100%;
+      padding: 10px;
+      border-radius: 6px;
+      border: 1px solid #ccc;
+      margin-bottom: 15px;
+      font-size: 1rem;
+    }
+
+    button {
+      background-color: #f26419;
+      color: white;
+      border: none;
+      font-weight: bold;
+      cursor: pointer;
+    }
+
+    button:hover {
+      background-color: #d65211;
+    }
+
+    .success {
+      color: green;
+      text-align: center;
+      margin-top: 10px;
+    }
+  </style>
+</head>
+<body onload="checkLogin();">
+
+  <div class="container">
+    <h2>🚚 อัปเดตสถานะการจัดส่ง</h2>
+    <form id="status-form">
+      <label for="orderId">เลขคำสั่งซื้อ (เช่น ORD001):</label>
+      <input type="text" id="orderId" required>
+
+      <label for="status">สถานะ:</label>
+      <select id="status">
+        <option value="📦 กำลังเตรียมสินค้า">📦 กำลังเตรียมสินค้า</option>
+        <option value="✅ ตรวจสอบสลิปแล้ว">✅ ตรวจสอบสลิปแล้ว</option>
+        <option value="🚚 จัดส่งแล้ว">🚚 จัดส่งแล้ว</option>
+      </select>
+
+      <label for="trackingNo">หมายเลขพัสดุ (ถ้ามี):</label>
+      <input type="text" id="trackingNo">
+
+      <button type="submit">บันทึกสถานะ</button>
+      <p class="success" id="successMsg"></p>
+    </form>
+  </div>
+
+  <script>
+    function checkLogin() {
+      if (localStorage.getItem("adminLoggedIn") !== "true") {
+        alert("กรุณาเข้าสู่ระบบก่อน");
+        window.location.href = "admin-login.html";
+      }
+    }
+
+    document.getElementById("status-form").addEventListener("submit", function(e) {
+      e.preventDefault();
+
+      const orderId = document.getElementById("orderId").value.trim().toUpperCase();
+      const status = document.getElementById("status").value;
+      const trackingNo = document.getElementById("trackingNo").value.trim();
+      const statusText = trackingNo ? `${status} - เลขพัสดุ: ${trackingNo}` : status;
+
+      // เก็บสถานะลง localStorage
+      let trackingData = JSON.parse(localStorage.getItem("trackingStatus") || "{}");
+      trackingData[orderId] = statusText;
+      localStorage.setItem("trackingStatus", JSON.stringify(trackingData));
+
+      document.getElementById("successMsg").textContent = "✅ อัปเดตสถานะเรียบร้อยแล้ว";
+      this.reset();
+    });
+  </script>
+</body>
+</html>
