@@ -1,151 +1,273 @@
-<!DOCTYPE html>
-<html lang="th">
-<head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>ร้านค้าชุมชนออนไลน์</title>
-  <link rel="stylesheet" href="css/style.css" />
-  <link href="https://fonts.googleapis.com/css2?family=Kanit&display=swap" rel="stylesheet" />
-</head>
-<body>
-  <header class="navbar">
-    <div class="container">
-      <div class="logo">🛒 ชุมชนช้อป</div>
-      <nav>
-        <a href="index.html">หน้าแรก</a>
-        <a href="products.html">สินค้า</a>
-        <a href="about.html">เกี่ยวกับเรา</a>
-        <a href="contact.html">ติดต่อ</a>
-        <a href="cart.html">ตะกร้า</a>
-      </nav>
-    </div>
-  </header>
+/* ฟอนต์ */
+body {
+  margin: 0;
+  font-family: 'Kanit', sans-serif;
+  background-color: #ffffff;
+  color: #333;
+}
 
-  <section class="hero">
-    <div class="hero-content">
-      <h1>ระบบจัดการร้านค้าปลีก <br>ออนไลน์</h1>
-      <h2><span class="highlight">สำหรับสินค้าชุมชน</span></h2>
-      <p>เชื่อมชุมชนกับผู้ซื้อทั่วประเทศ ด้วยเว็บไซต์ง่าย ใช้งานสะดวก</p>
-      <a href="products.html" class="btn">เข้าสู่หน้าร้าน</a>
-    </div>
-  </section>
+/* Navbar */
+.navbar {
+  background-color: #00724f;
+  padding: 10px 0;
+  color: white;
+}
 
-    <!-- Section จุดเด่น -->
-<section class="features">
-  <div class="feature">
-    <img src="https://cdn-icons-png.flaticon.com/512/1046/1046784.png" alt="ส่งฟรี" />
-    <h3>ส่งฟรีทั่วประเทศ</h3>
-    <p>เมื่อสั่งซื้อครบ 500 บาท</p>
-  </div>
-  <div class="feature">
-    <img src="https://cdn-icons-png.flaticon.com/512/3595/3595455.png" alt="ของแท้" />
-    <h3>สินค้าชุมชนแท้</h3>
-    <p>จากเกษตรกรและผู้ผลิตท้องถิ่น</p>
-  </div>
-  <div class="feature">
-    <img src="https://cdn-icons-png.flaticon.com/512/3771/3771518.png" alt="สะดวก" />
-    <h3>สั่งง่าย จ่ายสะดวก</h3>
-    <p>มีช่องทางการชำระหลายรูปแบบ</p>
-  </div>
-</section>
+.navbar .container {
+  width: 90%;
+  margin: 0 auto;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  flex-wrap: wrap;
+}
 
-<!-- Footer -->
-<footer class="footer">
-  <p>&copy; 2025 ร้านค้าชุมชนออนไลน์ | พัฒนาเพื่อการศึกษา</p>
-</footer>
+.navbar .logo {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  font-size: 1.3rem;
+  font-weight: bold;
+}
 
-  </main>
-<!DOCTYPE html>
-<html lang="th">
-<head>
-<meta charset="UTF-8" />
-<meta name="viewport" content="width=device-width, initial-scale=1" />
-<title>เว็บสั่งซื้อสินค้า</title>
-<style>
-  body { font-family: Arial, sans-serif; max-width: 480px; margin: 20px auto; padding: 10px; }
-  label { display: block; margin-top: 12px; }
-  input, select { width: 100%; padding: 8px; margin-top: 4px; }
-  button { margin-top: 16px; padding: 10px 20px; }
-  .success { color: green; margin-top: 10px; }
-  .error { color: red; margin-top: 10px; }
-</style>
-</head>
-<body>
+.navbar nav a {
+  color: white;
+  text-decoration: none;
+  margin-left: 20px;
+  font-weight: 500;
+}
 
-<h2>สั่งซื้อสินค้า</h2>
+.navbar nav a:hover {
+  text-decoration: underline;
+}
 
-<form id="orderForm">
-  <label>ชื่อผู้สั่ง
-    <input type="text" name="name" required />
-  </label>
+/* Hero section */
+.hero {
+  padding: 60px 20px;
+  text-align: center;
+  background-color: #f6f6f6;
+}
 
-  <label>อีเมล
-    <input type="email" name="email" required />
-  </label>
+.hero-content h1 {
+  font-size: 2.5rem;
+  color: #006241;
+  margin-bottom: 0.5rem;
+}
 
-  <label>สินค้า
-    <select name="product" required>
-      <option value="">-- เลือกสินค้า --</option>
-      <option value="น้ำผึ้งธรรมชาติ">น้ำผึ้งธรรมชาติ</option>
-      <option value="ถุงข้าวอินทรีย์ 1 กก.">ถุงข้าวอินทรีย์ 1 กก.</option>
-      <option value="สบู่สมุนไพร">สบู่สมุนไพร</option>
-      <option value="ชาดอกอัญชันแห้ง">ชาดอกอัญชันแห้ง</option>
-      <option value="กล้วยฉาบกรอบ">กล้วยฉาบกรอบ</option>
-    </select>
-  </label>
+.hero-content h2 .highlight {
+  font-size: 2rem;
+  color: #f26419;
+  font-weight: bold;
+}
 
-  <label>จำนวน
-    <input type="number" name="quantity" min="1" value="1" required />
-  </label>
+.hero-content p {
+  font-size: 1rem;
+  margin: 15px 0 25px;
+  color: #333;
+}
 
-  <label>เบอร์ติดต่อ
-    <input type="tel" name="phone" required />
-  </label>
+.btn {
+  display: inline-block;
+  padding: 10px 20px;
+  background-color: #f26419;
+  color: white;
+  text-decoration: none;
+  border-radius: 6px;
+  font-weight: bold;
+  font-size: 1rem;
+}
 
-  <button type="submit">ส่งคำสั่งซื้อ</button>
-</form>
+.btn:hover {
+  background-color: #d65211;
+}
 
-<div id="msg"></div>
+/* Section จุดเด่น */
+.features {
+  display: flex;
+  justify-content: center;
+  gap: 40px;
+  padding: 40px 20px;
+  background-color: #ffffff;
+  flex-wrap: wrap;
+  text-align: center;
+}
 
-<script>
-  const scriptURL = '<<วาง URL ของ Web app Google Apps Script ที่ได้ตรงนี้>>';
-  const form = document.getElementById('orderForm');
-  const msg = document.getElementById('msg');
+.feature {
+  max-width: 250px;
+}
 
-  form.addEventListener('submit', e => {
-    e.preventDefault();
+.feature img {
+  width: 64px;
+  height: 64px;
+  margin-bottom: 10px;
+}
 
-    const formData = new FormData(form);
-    const data = {
-      name: formData.get('name'),
-      email: formData.get('email'),
-      product: formData.get('product'),
-      quantity: formData.get('quantity'),
-      phone: formData.get('phone')
-    };
+.feature h3 {
+  color: #00724f;
+  margin: 10px 0 5px;
+}
 
-    fetch(scriptURL, {
-      method: 'POST',
-      body: JSON.stringify(data),
-      headers: { 'Content-Type': 'application/json' }
-    })
-    .then(response => response.json())
-    .then(response => {
-      if(response.result === 'success'){
-        msg.textContent = 'ส่งคำสั่งซื้อสำเร็จ ขอบคุณครับ!';
-        msg.className = 'success';
-        form.reset();
-      } else {
-        msg.textContent = 'เกิดข้อผิดพลาด: ' + response.message;
-        msg.className = 'error';
-      }
-    })
-    .catch(error => {
-      msg.textContent = 'เกิดข้อผิดพลาด: ' + error.message;
-      msg.className = 'error';
-    });
-  });
-</script>
+.feature p {
+  color: #555;
+  font-size: 0.95rem;
+}
 
-</body>
-</html>
+/* Product Card */
+.product-card {
+  width: 220px;
+  background: #fff;
+  border: 1px solid #ddd;
+  border-radius: 10px;
+  padding: 15px;
+  margin: 10px;
+  text-align: center;
+  box-shadow: 0 0 8px rgba(0,0,0,0.1);
+  transition: transform 0.2s;
+}
+
+.product-card:hover {
+  transform: translateY(-5px);
+}
+
+.product-card img {
+  width: 100%;
+  max-width: 200px;
+  height: 200px;
+  object-fit: cover;
+  display: block;
+  margin: 0 auto 10px;
+  border-radius: 8px;
+}
+
+.product-card h3 {
+  margin: 10px 0 5px;
+  font-size: 1.1rem;
+}
+
+.product-card p {
+  color: #555;
+  font-size: 0.95rem;
+  margin: 5px 0;
+}
+
+.product-card button {
+  background: #f26419;
+  color: #fff;
+  border: none;
+  padding: 8px 15px;
+  border-radius: 5px;
+  cursor: pointer;
+  transition: 0.2s;
+}
+
+.product-card button:hover {
+  background: #d65211;
+}
+
+/* Footer */
+.footer {
+  background-color: #00724f;
+  color: white;
+  text-align: center;
+  padding: 15px;
+  margin-top: 40px;
+}
+
+/* Contact Page Styles */
+.contact-form {
+  display: flex;
+  flex-direction: column;
+  gap: 15px;
+  margin-top: 20px;
+}
+
+.contact-form input,
+.contact-form textarea {
+  padding: 10px;
+  border-radius: 5px;
+  border: 1px solid #aaa;
+  width: 100%;
+}
+
+.contact-form button {
+  padding: 10px;
+  background-color: #008080;
+  color: white;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+}
+
+.contact-form button:hover {
+  background-color: #006666;
+}
+
+.contact-info {
+  margin-top: 40px;
+  line-height: 1.8;
+}
+
+/* ========== Responsive ========== */
+
+/* แท็บเล็ต */
+@media screen and (max-width: 768px) {
+  .navbar .container {
+    flex-direction: column;
+    align-items: flex-start;
+  }
+
+  .navbar nav a {
+    display: block;
+    margin: 8px 0;
+  }
+
+  .hero-content h1 {
+    font-size: 2rem;
+  }
+
+  .hero-content h2 .highlight {
+    font-size: 1.5rem;
+  }
+
+  .hero-content p {
+    font-size: 0.95rem;
+  }
+
+  .btn {
+    font-size: 0.95rem;
+    padding: 8px 16px;
+  }
+
+  .features {
+    flex-direction: column;
+    align-items: center;
+    padding: 20px 10px;
+  }
+
+  .feature {
+    margin-bottom: 20px;
+  }
+
+  .product-card {
+    width: 45%;
+  }
+}
+
+/* มือถือ */
+@media screen and (max-width: 480px) {
+  .product-card {
+    width: 90%;
+  }
+
+  .hero-content h1 {
+    font-size: 1.5rem;
+  }
+
+  .hero-content h2 .highlight {
+    font-size: 1.2rem;
+  }
+
+  .hero-content p {
+    font-size: 0.9rem;
+  }
+}
