@@ -55,6 +55,97 @@
 </footer>
 
   </main>
+<!DOCTYPE html>
+<html lang="th">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>เว็บสั่งซื้อสินค้า</title>
+<style>
+  body { font-family: Arial, sans-serif; max-width: 480px; margin: 20px auto; padding: 10px; }
+  label { display: block; margin-top: 12px; }
+  input, select { width: 100%; padding: 8px; margin-top: 4px; }
+  button { margin-top: 16px; padding: 10px 20px; }
+  .success { color: green; margin-top: 10px; }
+  .error { color: red; margin-top: 10px; }
+</style>
+</head>
+<body>
+
+<h2>สั่งซื้อสินค้า</h2>
+
+<form id="orderForm">
+  <label>ชื่อผู้สั่ง
+    <input type="text" name="name" required />
+  </label>
+
+  <label>อีเมล
+    <input type="email" name="email" required />
+  </label>
+
+  <label>สินค้า
+    <select name="product" required>
+      <option value="">-- เลือกสินค้า --</option>
+      <option value="น้ำผึ้งธรรมชาติ">น้ำผึ้งธรรมชาติ</option>
+      <option value="ถุงข้าวอินทรีย์ 1 กก.">ถุงข้าวอินทรีย์ 1 กก.</option>
+      <option value="สบู่สมุนไพร">สบู่สมุนไพร</option>
+      <option value="ชาดอกอัญชันแห้ง">ชาดอกอัญชันแห้ง</option>
+      <option value="กล้วยฉาบกรอบ">กล้วยฉาบกรอบ</option>
+    </select>
+  </label>
+
+  <label>จำนวน
+    <input type="number" name="quantity" min="1" value="1" required />
+  </label>
+
+  <label>เบอร์ติดต่อ
+    <input type="tel" name="phone" required />
+  </label>
+
+  <button type="submit">ส่งคำสั่งซื้อ</button>
+</form>
+
+<div id="msg"></div>
+
+<script>
+  const scriptURL = '<<วาง URL ของ Web app Google Apps Script ที่ได้ตรงนี้>>';
+  const form = document.getElementById('orderForm');
+  const msg = document.getElementById('msg');
+
+  form.addEventListener('submit', e => {
+    e.preventDefault();
+
+    const formData = new FormData(form);
+    const data = {
+      name: formData.get('name'),
+      email: formData.get('email'),
+      product: formData.get('product'),
+      quantity: formData.get('quantity'),
+      phone: formData.get('phone')
+    };
+
+    fetch(scriptURL, {
+      method: 'POST',
+      body: JSON.stringify(data),
+      headers: { 'Content-Type': 'application/json' }
+    })
+    .then(response => response.json())
+    .then(response => {
+      if(response.result === 'success'){
+        msg.textContent = 'ส่งคำสั่งซื้อสำเร็จ ขอบคุณครับ!';
+        msg.className = 'success';
+        form.reset();
+      } else {
+        msg.textContent = 'เกิดข้อผิดพลาด: ' + response.message;
+        msg.className = 'error';
+      }
+    })
+    .catch(error => {
+      msg.textContent = 'เกิดข้อผิดพลาด: ' + error.message;
+      msg.className = 'error';
+    });
+  });
+</script>
 
 </body>
 </html>
