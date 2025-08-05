@@ -11,6 +11,7 @@
       max-width: 700px;
       margin: auto;
       padding: 30px 20px;
+      font-family: 'Kanit', sans-serif;
     }
     .checkout-container input,
     .checkout-container textarea {
@@ -19,6 +20,7 @@
       margin-bottom: 15px;
       border-radius: 5px;
       border: 1px solid #aaa;
+      font-size: 16px;
     }
     .summary {
       background-color: #f6f6f6;
@@ -26,19 +28,25 @@
       border-radius: 8px;
       margin-top: 20px;
     }
-    .btn-print {
+    .btn-submit {
       background-color: #f26419;
       color: white;
-      padding: 10px 20px;
+      padding: 12px 25px;
       font-weight: bold;
       border: none;
       border-radius: 6px;
       cursor: pointer;
-      margin-top: 20px;
+      font-size: 18px;
+      margin-top: 15px;
+      width: 100%;
+    }
+    .cart-item {
+      margin-bottom: 10px;
     }
   </style>
 </head>
-<body onload="showSummary()">
+<body onload="displayCart()">
+
   <header class="navbar">
     <div class="container">
       <div class="logo">🛒 ชุมชนช้อป</div>
@@ -53,122 +61,30 @@
     </div>
   </header>
 
-  <section class="hero">
-    <div class="hero-content">
-      <h1>ข้อมูลการชำระเงิน</h1>
-      <p>กรุณากรอกข้อมูลให้ครบถ้วน เพื่อออกใบเสร็จและดำเนินการจัดส่ง</p>
-    </div>
-  </section>
-
   <section class="checkout-container">
-    <form id="checkout-form">
-      <h3>ข้อมูลผู้สั่งซื้อ</h3>
-      <input type="text" id="fullname" placeholder="ชื่อ-นามสกุล" required />
-      <input type="text" id="phone" placeholder="เบอร์โทรศัพท์" required />
-      <textarea id="address" rows="3" placeholder="ที่อยู่สำหรับจัดส่ง" required></textarea>
-      <textarea id="note" rows="2" placeholder="หมายเหตุเพิ่มเติม (ถ้ามี)"></textarea>
+    <h1>ข้อมูลผู้สั่งซื้อและตะกร้าสินค้า</h1>
 
-      <div class="summary">
-        <h3>รายการสินค้า</h3>
-        <div id="order-summary"></div>
-        <div id="order-total" style="margin-top: 10px;"></div>
-      </div>
+    <div id="cart-items" class="summary">
+      <!-- รายการสินค้าในตะกร้าจะแสดงที่นี่ -->
+    </div>
+    <div id="cart-total" class="summary" style="font-size: 18px; font-weight: bold;"></div>
 
-      <hr style="margin: 30px 0;">
+    <h3 style="margin-top: 30px;">กรุณากรอกข้อมูลผู้สั่งซื้อ</h3>
+    <form id="orderForm" onsubmit="return false;">
+      <input type="text" id="name" placeholder="ชื่อผู้สั่ง" required />
+      <input type="email" id="email" placeholder="อีเมล" required />
+      <input type="tel" id="phone" placeholder="เบอร์ติดต่อ" required />
+      <textarea id="address" placeholder="ที่อยู่สำหรับจัดส่ง (ถ้ามี)" rows="3"></textarea>
+      <textarea id="note" placeholder="หมายเหตุเพิ่มเติม (ถ้ามี)" rows="2"></textarea>
 
-      <h3>📌 วิธีชำระเงิน</h3>
-      <p>กรุณาชำระเงินตามข้อมูลด้านล่าง:</p>
-      <ul style="line-height: 1.8;">
-        <li><strong>บัญชีธนาคาร:</strong> กรุงไทย (KTB)</li>
-        <li><strong>ชื่อบัญชี:</strong> นางสาวกาญจนา แสงทอง</li>
-        <li><strong>เลขที่บัญชี:</strong> 123-4-56789-0</li>
-      </ul>
-
-      <p>หากต้องการความสะดวก สามารถสแกน QR ด้านล่างเพื่อชำระเงินผ่าน PromptPay</p>
-      <img src="images/qrcode-promptpay.jpg" alt="QR PromptPay" style="max-width: 200px; border: 1px solid #ccc; border-radius: 6px; margin: 15px 0;">
-
-      <p><strong>📲 โปรดยืนยันการโอนเงินโดยกรอกแบบฟอร์มด้านล่าง</strong></p>
-
-      <button type="submit" class="btn-print">ยืนยันคำสั่งซื้อ / พิมพ์ใบเสร็จ</button>
+      <button class="btn-submit" onclick="submitOrder()">ยืนยันคำสั่งซื้อ</button>
     </form>
-
-    <hr style="margin: 40px 0;">
-    <h3>📤 ยืนยันการชำระเงิน</h3>
-    <p>กรุณากรอกข้อมูลและแนบสลิปผ่านแบบฟอร์มด้านล่างนี้:</p>
-
-    <iframe src="https://docs.google.com/forms/d/e/1FAIpQLSfksvk7w3hlfDRFnUYlXK_NNGmlRJkZOAAT65IS45W42tYTRw/viewform?embedded=true"
-            width="100%" height="1000" frameborder="0" marginheight="0" marginwidth="0">
-      กำลังโหลดแบบฟอร์ม…
-    </iframe>
-
   </section>
 
-  <footer class="footer">
+  <footer class="footer" style="text-align:center; padding:15px; margin-top:40px;">
     <p>© 2025 ชุมชนช้อป. สงวนลิขสิทธิ์.</p>
   </footer>
 
-  <script>
-    function showSummary() {
-      const cart = JSON.parse(localStorage.getItem('cart')) || [];
-      const container = document.getElementById('order-summary');
-      const totalEl = document.getElementById('order-total');
-      let total = 0;
-
-      if (cart.length === 0) {
-        container.innerHTML = "<p>ไม่มีสินค้าในตะกร้า</p>";
-        return;
-      }
-
-      cart.forEach(item => {
-        const sum = item.price * item.quantity;
-        total += sum;
-        const p = document.createElement('p');
-        p.textContent = `${item.name} - ${item.quantity} x ${item.price} = ${sum} บาท`;
-        container.appendChild(p);
-      });
-
-      totalEl.innerHTML = `<strong>รวมทั้งหมด: ${total} บาท</strong>`;
-    }
-
-    document.getElementById('checkout-form').addEventListener('submit', function (e) {
-      e.preventDefault();
-
-      const name = document.getElementById('fullname').value;
-      const phone = document.getElementById('phone').value;
-      const address = document.getElementById('address').value;
-      const note = document.getElementById('note').value;
-
-      const cart = JSON.parse(localStorage.getItem('cart')) || [];
-      let orderText = `📦 คำสั่งซื้อใหม่จาก ${name}\n📱 เบอร์: ${phone}\n📍 ที่อยู่: ${address}\n🛒 รายการ:\n`;
-
-      let total = 0;
-      cart.forEach(item => {
-        const sum = item.price * item.quantity;
-        total += sum;
-        orderText += `• ${item.name} x ${item.quantity} = ${sum} บาท\n`;
-      });
-
-      orderText += `💰 รวมทั้งหมด: ${total} บาท\n\nหมายเหตุ: ${note}`;
-      orderText += `\n\n📤 ลูกค้าได้แนบสลิปใน Google Form แล้ว`;
-
-      sendLineNotify(orderText);
-
-      alert("✅ ขอบคุณ! ระบบได้รับคำสั่งซื้อของคุณแล้ว\n\nโปรดแนบสลิปในแบบฟอร์มด้านล่างเพื่อให้เราตรวจสอบ");
-      window.print();
-      localStorage.removeItem('cart');
-    });
-
-    function sendLineNotify(message) {
-      const token = "ใส่-TOKEN-ของคุณที่นี่";
-      fetch("https://notify-api.line.me/api/notify", {
-        method: "POST",
-        headers: {
-          "Content-Type": "application/x-www-form-urlencoded",
-          "Authorization": "Bearer " + token
-        },
-        body: "message=" + encodeURIComponent(message)
-      });
-    }
-  </script>
+  <script src="js/script.js"></script>
 </body>
 </html>
