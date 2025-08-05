@@ -83,7 +83,7 @@ function submitOrder() {
     products: products
   };
 
-  const scriptURL = 'https://script.google.com/macros/library/d/1m2EYkf18-2OeNn_cU_RH1v-ztbCL0O7i8GLrZZhF_JrCUWaHcQCegxl4/3';
+  const scriptURL = 'https://script.google.com/macros/s/AKfycbxBQZg34HURqVJaTL5mmzv5HUgLv2K_zmsQVx7UWAHydcCOMzsPXT3z6Q6wKefZt8zw/exec';
 
   fetch(scriptURL, {
     method: 'POST',
@@ -108,4 +108,5 @@ function submitOrder() {
     alert('เกิดข้อผิดพลาด: ' + error.message);
   });
 }
+
 
