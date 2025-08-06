@@ -1,0 +1,106 @@
+<!DOCTYPE html>
+<html lang="th">
+<head>
+  <meta charset="UTF-8">
+  <title>จัดการคำสั่งซื้อ | ร้านค้าชุมชน</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link href="https://fonts.googleapis.com/css2?family=Kanit&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="admin-style.css">
+  <style>
+    body {
+      font-family: 'Kanit', sans-serif;
+      background-color: #f0f0f0;
+      padding: 20px;
+    }
+
+    .container {
+      max-width: 900px;
+      margin: auto;
+      background: white;
+      padding: 25px;
+      border-radius: 10px;
+      box-shadow: 0 0 10px #ccc;
+    }
+
+    h2 {
+      text-align: center;
+      color: #00724f;
+      margin-bottom: 30px;
+    }
+
+    .order {
+      border-bottom: 1px solid #ddd;
+      padding: 15px 0;
+    }
+
+    .order p {
+      margin: 5px 0;
+    }
+
+    .items {
+      margin-left: 20px;
+    }
+
+    .highlight {
+      color: #f26419;
+      font-weight: bold;
+    }
+
+    .order-time {
+      font-size: 0.9rem;
+      color: gray;
+    }
+  </style>
+</head>
+<body onload="checkLogin(); showOrders();">
+
+  <div class="container">
+    <h2>📦 รายการคำสั่งซื้อ</h2>
+    <div id="order-list"></div>
+  </div>
+
+  <script>
+    function checkLogin() {
+      if (localStorage.getItem("adminLoggedIn") !== "true") {
+        alert("กรุณาเข้าสู่ระบบก่อน");
+        window.location.href = "admin-login.html";
+      }
+    }
+
+    function showOrders() {
+      const orderList = document.getElementById("order-list");
+      const orders = JSON.parse(localStorage.getItem("orders") || "[]");
+
+      if (orders.length === 0) {
+        orderList.innerHTML = "<p style='text-align:center;'>ยังไม่มีคำสั่งซื้อ</p>";
+        return;
+      }
+
+      orders.forEach(order => {
+        const div = document.createElement("div");
+        div.className = "order";
+
+        let itemsHtml = '';
+        order.items.forEach(item => {
+          itemsHtml += `<p>- ${item.name} x ${item.quantity} = ${item.price * item.quantity} บาท</p>`;
+        });
+
+        div.innerHTML = `
+          <p><strong>ชื่อลูกค้า:</strong> ${order.name}</p>
+          <p><strong>เบอร์โทร:</strong> ${order.phone}</p>
+          <p><strong>ที่อยู่:</strong> ${order.address}</p>
+          <p><strong>ยอดรวม:</strong> <span class="highlight">${order.total} บาท</span></p>
+          <div class="items">
+            <strong>รายการสินค้า:</strong>
+            ${itemsHtml}
+          </div>
+          <p class="order-time">⏰ วันที่สั่งซื้อ: ${order.timestamp}</p>
+        `;
+
+        orderList.appendChild(div);
+      });
+    }
+  </script>
+
+</body>
+</html>
