@@ -62,7 +62,6 @@ function submitOrder() {
     return;
   }
 
-  // รับค่าจากฟอร์ม (สมมติมี input id="name", "email", "phone" อยู่ในหน้าเว็บ)
   const name = document.getElementById('name').value.trim();
   const email = document.getElementById('email').value.trim();
   const phone = document.getElementById('phone').value.trim();
@@ -72,10 +71,8 @@ function submitOrder() {
     return;
   }
 
-  // เตรียมข้อมูลสำหรับส่ง (แปลงตะกร้าเป็นข้อความ)
   const products = cart.map(item => `${item.name} x${item.quantity}`).join(', ');
 
-  // สร้างอ็อบเจ็กต์ข้อมูล
   const data = {
     name: name,
     email: email,
@@ -94,9 +91,8 @@ function submitOrder() {
   .then(response => {
     if(response.result === 'success'){
       alert('ส่งคำสั่งซื้อสำเร็จ ขอบคุณครับ!');
-      localStorage.removeItem('cart'); // เคลียร์ตะกร้าหลังส่ง
-      displayCart(); // รีเฟรชตะกร้า
-      // ล้างฟอร์มข้อมูลลูกค้า (ถ้ามี)
+      localStorage.removeItem('cart');
+      displayCart();
       document.getElementById('name').value = '';
       document.getElementById('email').value = '';
       document.getElementById('phone').value = '';
