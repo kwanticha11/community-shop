@@ -1,0 +1,219 @@
+<!DOCTYPE html>
+<html lang="th">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>ขอบคุณนะ — หัวใจ</title>
+  <style>
+    :root{
+      --bg: #fff6f8;
+      --heart1: #ff6b81;
+      --heart2: #ff3d7f;
+      --text: #4b1c2d;
+    }
+
+    html,body{
+      height:100%;
+      margin:0;
+      font-family: "Sarabun", "Kanit", system-ui, -apple-system, "Segoe UI", Roboto, "Helvetica Neue", Arial;
+      background: linear-gradient(180deg, var(--bg) 0%, #ffeef3 100%);
+      -webkit-font-smoothing:antialiased;
+      display:flex;
+      align-items:center;
+      justify-content:center;
+    }
+
+    .container{
+      width:min(920px, 95vw);
+      text-align:center;
+      padding:2rem;
+    }
+
+    /* กล่องหัวใจ */
+    .heart-wrap{
+      position:relative;
+      width:100%;
+      max-width:820px;
+      margin: 0 auto 1.5rem;
+      aspect-ratio: 1 / 1; /* ให้กล่องสี่เหลี่ยมเท่ากัน */
+      display:flex;
+      align-items:center;
+      justify-content:center;
+    }
+
+    svg{
+      width:100%;
+      height:100%;
+      filter: drop-shadow(0 20px 30px rgba(255, 77, 130, 0.12));
+      transform-origin:center;
+      animation: pulse 1800ms ease-in-out infinite;
+    }
+
+    @keyframes pulse{
+      0% { transform: scale(0.98); }
+      50% { transform: scale(1.02); }
+      100% { transform: scale(0.98); }
+    }
+
+    /* ข้อความทับบนหัวใจ */
+    .heart-text{
+      position:absolute;
+      inset:0;
+      display:flex;
+      align-items:center;
+      justify-content:center;
+      pointer-events:none;
+      padding: 2rem;
+      text-align:center;
+    }
+
+    .heart-text .line{
+      display:block;
+      color:var(--text);
+      text-shadow: 0 2px 0 rgba(255,255,255,0.6);
+    }
+
+    .heart-text .big{
+      font-size: clamp(20px, 4.4vw, 34px);
+      font-weight:700;
+      letter-spacing: 0.6px;
+      margin-bottom:0.45rem;
+    }
+
+    .heart-text .small{
+      font-size: clamp(14px, 2.6vw, 18px);
+      font-weight:500;
+      opacity:0.95;
+    }
+
+    /* ปุ่มดาวน์โหลด (ถ้าต้องการ) */
+    .actions{
+      margin-top:1rem;
+      display:flex;
+      gap:0.5rem;
+      justify-content:center;
+      flex-wrap:wrap;
+    }
+
+    .btn{
+      background: linear-gradient(90deg,#ff7aa3,#ff4f84);
+      color:white;
+      border:none;
+      padding:0.6rem 1rem;
+      border-radius:10px;
+      font-weight:600;
+      cursor:pointer;
+      box-shadow: 0 6px 18px rgba(255,77,130,0.18);
+    }
+
+    .caption{
+      margin-top:0.6rem;
+      color:#8a5161;
+      font-size:13px;
+    }
+
+    @media (max-width:420px){
+      .container{ padding:1rem 0.6rem; }
+    }
+  </style>
+</head>
+<body>
+  <div class="container">
+    <div class="heart-wrap" id="heartWrap">
+      <!-- SVG หัวใจแบบสมมาตร มี gradient -->
+      <svg viewBox="0 0 512 512" role="img" aria-label="หัวใจสีชมพู">
+        <defs>
+          <linearGradient id="g" x1="0" x2="1" y1="0" y2="1">
+            <stop offset="0" stop-color="#ff8fb0" />
+            <stop offset="1" stop-color="#ff3d7f" />
+          </linearGradient>
+          <filter id="glow" x="-50%" y="-50%" width="200%" height="200%">
+            <feGaussianBlur stdDeviation="10" result="b"/>
+            <feMerge>
+              <feMergeNode in="b"/>
+              <feMergeNode in="SourceGraphic"/>
+            </feMerge>
+          </filter>
+        </defs>
+
+        <!-- รูปหัวใจ path -->
+        <path d="M256 464s-25-17-74-57C106 332 32 269 32 196 32 137 83 96 138 112c36 10 64 41 86 66 18-21 39-44 82-44s64 23 82 44c22-25 50-56 86-66 55-16 106 25 106 84 0 73-74 136-150 211-49 40-74 57-74 57z"
+              fill="url(#g)" stroke="#ff2e6b" stroke-opacity="0.12" stroke-width="2" filter="url(#glow)"/>
+        <!-- เงาด้านล่างเล็กๆ -->
+        <ellipse cx="256" cy="480" rx="140" ry="18" fill="rgba(180,70,90,0.08)"/>
+      </svg>
+
+      <!-- ข้อความ -->
+      <div class="heart-text" aria-hidden="false">
+        <div>
+          <span class="line big">ขอบคุณนะที่อยู่เป็นเพื่อนให้กำลังใจกันจนเสร็จ</span>
+          <span class="line small">..... รักเมย์ษา นะ 💖</span>
+        </div>
+      </div>
+    </div>
+
+    <div class="actions">
+      <button class="btn" id="downloadBtn">ดาวน์โหลดเป็นภาพ (PNG)</button>
+    </div>
+    <div class="caption">กดปุ่มดาวน์โหลดเพื่อเซฟรูปหัวใจเป็นไฟล์ PNG</div>
+  </div>
+
+  <script>
+    // ฟังก์ชันดาวน์โหลด SVG เป็น PNG
+    const btn = document.getElementById('downloadBtn');
+    btn.addEventListener('click', async () => {
+      try {
+        const wrap = document.getElementById('heartWrap');
+        // ใช้ SVG ที่อยู่ใน wrap
+        const svgEl = wrap.querySelector('svg');
+        const serializer = new XMLSerializer();
+        let svgStr = serializer.serializeToString(svgEl);
+
+        // เพิ่ม explicit xmlns ถ้าไม่มี
+        if(!svgStr.includes('xmlns="http://www.w3.org/2000/svg"')){
+          svgStr = svgStr.replace('<svg', '<svg xmlns="http://www.w3.org/2000/svg"');
+        }
+
+        // ใส้สไตล์ที่จำเป็น (font-family อาจ fallback ถ้าไม่ติดตั้ง)
+        const css = `<style>svg{font-family: "Sarabun", "Kanit", system-ui, -apple-system, "Segoe UI", Roboto, Arial;}</style>`;
+        svgStr = svgStr.replace(/<svg([^>]*)>/, (m)=> m + css);
+
+        const svgBlob = new Blob([svgStr], {type: 'image/svg+xml;charset=utf-8'});
+        const url = URL.createObjectURL(svgBlob);
+        const img = new Image();
+
+        // เพิ่มขนาดเอาต์พุต
+        const outSize = 2000; // px - ปรับได้
+        img.onload = () => {
+          const canvas = document.createElement('canvas');
+          canvas.width = outSize;
+          canvas.height = outSize;
+          const ctx = canvas.getContext('2d');
+
+          // เติมพื้นหลังอ่อนๆ
+          ctx.fillStyle = '#fff6f8';
+          ctx.fillRect(0,0,canvas.width,canvas.height);
+
+          // วาดรูป
+          ctx.drawImage(img, 0, 0, canvas.width, canvas.height);
+
+          // สร้างลิงก์ดาวน์โหลด
+          canvas.toBlob((blob) => {
+            const a = document.createElement('a');
+            a.href = URL.createObjectURL(blob);
+            a.download = 'thankyou_heart.png';
+            document.body.appendChild(a);
+            a.click();
+            a.remove();
+            URL.revokeObjectURL(url);
+          }, 'image/png');
+        };
+        img.crossOrigin = 'anonymous';
+        img.src = url;
+      } catch (err) {
+        alert('เกิดข้อผิดพลาดในการสร้างไฟล์: ' + err.message);
+      }
+    });
+  </script>
+</body>
+</html>
